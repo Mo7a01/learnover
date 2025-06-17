@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نظام إدارة المبيعات والتحصيلات على Excel</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet"></noscript>
+
     <style>
         :root {
             --primary-color: #3498db; /* Soft blue/teal */
@@ -289,7 +292,7 @@
                 content: none; /* Ensure arrows are removed on mobile too */
             }
             .how-it-works-steps {
-                flex-direction: column; /* Stack vertically on smaller screens */
+                flex-direction: column;
                 align-items: center;
             }
             .how-it-works-step {
@@ -910,7 +913,7 @@
                             behavior: 'smooth'
                         });
                         // Optional: Update URL without adding to history (modern browsers only)
-                        // history.replaceState(null, '', window.location.pathname); 
+                        // history.replaceState(null, '', window.location.pathname);
                     }
                 });
             });
