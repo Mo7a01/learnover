@@ -75,7 +75,7 @@
             box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
         }
 
-        /* Style for radio buttons group */
+        /* NEW/MODIFIED Style for radio buttons group */
         .radio-group {
             margin-bottom: 20px;
             border: 1px solid var(--border-color);
@@ -83,11 +83,12 @@
             border-radius: 8px;
             background-color: #f0f8ff; /* Light blue background */
         }
-        .radio-group label {
+        .radio-group > label { /* Target the label directly inside radio-group */
             font-weight: bold;
             color: var(--primary-color);
             margin-bottom: 10px;
             font-size: 1.1em;
+            display: block; /* Ensure it takes its own line */
         }
         .radio-options {
             display: flex;
@@ -110,14 +111,22 @@
             border-color: var(--primary-color);
         }
         .radio-option input[type="radio"] {
+            /* REVERTING this to default appearance, only adjusting margin/size */
+            -webkit-appearance: radio; /* Ensure default radio button appearance */
+            -moz-appearance: radio;
+            appearance: radio;
             margin-left: 10px; /* Space between radio button and text in RTL */
-            transform: scale(1.2); /* Slightly larger radio button */
+            width: 18px; /* Set a specific size for better visibility */
+            height: 18px; /* Set a specific size for better visibility */
             cursor: pointer;
+            border: 1px solid var(--border-color); /* Add a border for definition */
+            vertical-align: middle; /* Align with text */
         }
         .radio-option span {
             font-weight: normal;
             color: var(--text-dark);
             font-size: 1em;
+            vertical-align: middle; /* Align with radio button */
         }
 
 
