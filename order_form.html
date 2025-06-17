@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اطلب نسختك الآن - نظام كنترول بيزنسك</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --accent-color: #2ecc71;
+            --background-light: #f8f8f8;
+            --background-white: #ffffff;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: var(--background-white);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1.1em;
+            font-family: 'Cairo', sans-serif;
+            box-sizing: border-box; /* Ensures padding doesn't affect total width */
+        }
+
+        input[type="text"]:focus,
+        input[type="tel"]:focus,
+        input[type="email"]:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .success-message {
+            display: none;
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .error-message {
+            display: none;
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        .back-link:hover {
+            color: var(--accent-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                margin: 20px;
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            input[type="text"],
+            input[type="tel"],
+            input[type="email"],
+            button {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>اطلب نسختك الآن</h1>
+        <p style="text-align: center; color: var(--text-light); margin-bottom: 30px;">املأ النموذج التالي وسنتواصل معك في أقرب وقت لتزويدك بالنسخة الكاملة.</p>
+
+        <form id="orderForm">
+            <div class="form-group">
+                <label for="name">الاسم كاملاً:</label>
+                <input type="text" id="name" name="الاسم كاملاً" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">رقم الهاتف:</label>
+                <input type="tel" id="phone" name="رقم الهاتف" required>
+            </div>
+            <div class="form-group">
+                <label for="whatsapp">رقم الواتساب (اختياري):</label>
+                <input type="tel" id="whatsapp" name="رقم الواتساب">
+            </div>
+            <div class="form-group">
+                <label for="email">البريد الإلكتروني:</label>
+                <input type="email" id="email" name="البريد الإلكتروني" required>
+            </div>
+            <button type="submit">إرسال الطلب</button>
+            <div id="successMessage" class="success-message">
+                ✅ تم استلام طلبك بنجاح! سنتواصل معك قريباً.
+            </div>
+            <div id="errorMessage" class="error-message">
+                ❌ حدث خطأ أثناء إرسال طلبك. يرجى المحاولة مرة أخرى أو التواصل معنا مباشرة.
+            </div>
+        </form>
+        <a href="index.html" class="back-link">العودة إلى الصفحة الرئيسية</a>
+    </div>
+
+    <script>
+        const form = document.getElementById('orderForm');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+
+        // IMPORTANT: Replace with your actual Google Sheet Web App URL
+        // Instructions to get this URL are below
+        const GOOGLE_SHEET_WEB_APP_URL = "YOUR_GOOGLE_SHEET_WEB_APP_URL_HERE"; 
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Prevent default form submission
+
+            successMessage.style.display = 'none'; // Hide previous messages
+            errorMessage.style.display = 'none';
+
+            const formData = new FormData(form);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            try {
+                const response = await fetch(GOOGLE_SHEET_WEB_APP_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Required for Google Apps Script Web App
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams(data).toString(),
+                });
+
+                // Since 'no-cors' mode is used, we can't check response.ok directly.
+                // A common workaround is to show success always and let the server-side handle errors,
+                // or use a more complex CORS setup/backend. For simplicity, we assume success here.
+                successMessage.style.display = 'block';
+                form.reset(); // Clear form fields
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                errorMessage.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
