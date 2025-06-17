@@ -33,12 +33,12 @@
             direction: rtl;
             text-align: right;
             overflow-x: hidden; /* Prevent horizontal scroll when sidebar is open */
-            transition: margin-right .5s; /* Smooth transition for pushing content */
+            transition: margin-left .5s; /* Smooth transition for pushing content (changed to margin-left) */
         }
 
         /* Wrapper for main content to be pushed */
         #main-content-wrapper {
-            transition: margin-right .5s;
+            transition: margin-left .5s; /* Smooth transition for pushing content (changed to margin-left) */
         }
 
         .container {
@@ -57,8 +57,8 @@
             align-items: center;
             padding-right: 20px;
             padding-left: 20px;
-            position: relative; /* Ensure z-index works */
-            z-index: 10; /* Lower than sidenav */
+            position: relative;
+            z-index: 10;
         }
 
         .logo {
@@ -109,7 +109,7 @@
             color: var(--primary-color);
             padding: 0;
             margin-right: 15px;
-            z-index: 101; /* Above header content */
+            z-index: 101;
         }
 
         /* Off-canvas menu styling */
@@ -117,7 +117,7 @@
             height: 100%;
             width: 0; /* 0 width by default (hidden) */
             position: fixed;
-            z-index: 1000; /* Higher than main content */
+            z-index: 1000;
             top: 0;
             right: 0; /* Position from right for RTL */
             background-color: var(--background-white);
@@ -136,9 +136,9 @@
         }
 
         .sidenav ul li {
-            padding: 12px 20px; /* Smaller padding */
+            padding: 12px 20px;
             text-decoration: none;
-            font-size: 1.2em; /* Smaller font size */
+            font-size: 1.2em;
             color: var(--text-dark);
             display: block;
             transition: 0.3s;
@@ -167,7 +167,7 @@
             position: absolute;
             top: 15px;
             left: 25px; /* Position close button to the left for RTL */
-            font-size: 2.5em; /* Smaller close button */
+            font-size: 2.5em;
             margin-right: 0px;
             color: var(--text-dark);
             text-decoration: none;
@@ -180,7 +180,7 @@
         .hero-section {
             background-color: var(--primary-color);
             color: white;
-            padding: 80px 0 0; /* Keep padding top, remove bottom if image fills */
+            padding: 80px 0 0;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -188,15 +188,15 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 70vh; /* Ensure min height to contain content */
+            min-height: 70vh;
         }
 
         .hero-content {
             max-width: 900px;
-            margin: 0 auto 40px auto; /* Add margin-bottom to separate from image */
+            margin: 0 auto 40px auto;
             position: relative;
             z-index: 1;
-            padding: 0 20px; /* Add horizontal padding for content */
+            padding: 0 20px;
         }
 
         .hero-section h1 {
@@ -248,17 +248,17 @@
         }
 
         .hero-image-placeholder {
-            margin-top: 40px; /* Adjusted margin top */
+            margin-top: 40px;
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             padding: 20px;
-            max-width: 800px; /* Or larger if your image is wider */
-            width: 100%; /* Ensure it takes available width */
+            max-width: 800px;
+            width: 100%;
             margin-left: auto;
             margin-right: auto;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             overflow: hidden;
-            flex-shrink: 0; /* Prevent it from shrinking */
+            flex-shrink: 0;
         }
 
         .hero-image-placeholder img {
@@ -266,7 +266,7 @@
             height: auto;
             display: block;
             border-radius: 8px;
-            object-fit: contain; /* Ensure image fits within its container */
+            object-fit: contain;
         }
 
         section {
@@ -322,11 +322,11 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.08);
         }
         .problem-solution .problem {
-             background-color: #ffebee; /* Light red for problem */
+             background-color: #ffebee;
              border: 1px solid #ef9a9a;
         }
         .problem-solution .solution {
-            background-color: #e8f5e9; /* Light green for solution */
+            background-color: #e8f5e9;
             border: 1px solid #a5d6a7;
         }
         .problem-solution h3 {
@@ -372,14 +372,14 @@
         .how-it-works-steps {
             display: flex;
             justify-content: center;
-            gap: 40px; /* Space between steps */
+            gap: 40px;
             flex-wrap: wrap;
         }
 
         .how-it-works-step {
             background-color: var(--background-white);
             border: 2px solid var(--primary-color);
-            border-radius: 8px; /* Square with rounded corners */
+            border-radius: 8px;
             width: 140px;
             height: 140px;
             display: flex;
@@ -399,9 +399,8 @@
             margin-top: 10px;
             color: var(--text-dark);
         }
-        /* REMOVED: Arrow styling for desktop */
         .how-it-works-step:not(:last-child)::after {
-            content: none; /* Explicitly remove content for the arrow */
+            content: none;
         }
 
 
@@ -460,8 +459,8 @@
         .pricing-card {
             background-color: var(--primary-color);
             color: white;
-            flex: 1; /* Allows cards to grow and shrink */
-            min-width: 300px; /* Minimum width before wrapping */
+            flex: 1;
+            min-width: 300px;
             max-width: 400px;
             padding: 40px;
             border-radius: 12px;
@@ -476,7 +475,7 @@
         }
 
         .pricing-card.secondary-card {
-            background-color: var(--background-white); /* Lighter background for the secondary card */
+            background-color: var(--background-white);
             color: var(--text-dark);
             border: 2px solid var(--primary-color);
         }
@@ -485,7 +484,7 @@
             color: var(--primary-color);
         }
         .pricing-card.secondary-card ul li::before {
-            color: var(--accent-color); /* Same checkmark color */
+            color: var(--accent-color);
         }
         .pricing-card.secondary-card .note {
             color: var(--text-light);
@@ -505,14 +504,14 @@
         .pricing-card h3 {
             font-size: 2.2em;
             margin-bottom: 20px;
-            color: white; /* Default for primary card */
+            color: white;
         }
 
         .pricing-card .price {
             font-size: 3.5em;
             font-weight: bold;
             margin-bottom: 20px;
-            color: white; /* Default for primary card */
+            color: white;
         }
 
         .pricing-card ul {
@@ -526,7 +525,7 @@
             font-size: 1.2em;
             margin-bottom: 15px;
             position: relative;
-            padding-right: 30px; /* Space for icon */
+            padding-right: 30px;
         }
 
         .pricing-card ul li::before {
@@ -540,7 +539,7 @@
         .pricing-card .note {
             font-size: 0.9em;
             margin-top: 20px;
-            color: rgba(255, 255, 255, 0.8); /* Default for primary card */
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .pricing-card .btn-primary {
@@ -580,7 +579,7 @@
             font-weight: bold;
             font-size: 1.1em;
             color: var(--primary-color);
-            background-color: #f0f8ff; /* Light blue for questions */
+            background-color: #f0f8ff;
         }
 
         .faq-question:hover {
@@ -602,7 +601,7 @@
         }
 
         .faq-item.active .faq-answer {
-            max-height: 200px; /* Adjust based on content */
+            max-height: 200px;
             padding: 20px;
         }
 
@@ -637,41 +636,41 @@
 
         /* Go To Top Button Styles */
         #scrollToTopBtn {
-            display: none; /* Hidden by default */
-            position: fixed; /* Fixed/sticky position */
-            bottom: 30px; /* Place the button at the bottom of the page */
-            left: 30px; /* 30px from the left (for RTL layout) */
-            z-index: 99; /* Make sure it does not overlap */
-            border: none; /* Remove borders */
-            outline: none; /* Remove outline */
-            background-color: var(--primary-color); /* Set a background color */
-            color: white; /* Text color */
-            cursor: pointer; /* Add a mouse pointer on hover */
-            padding: 15px; /* Some padding */
-            border-radius: 50%; /* Rounded shape */
-            font-size: 1.5em; /* Increase font size */
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 99;
+            border: none;
+            outline: none;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 50%;
+            font-size: 1.5em;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             transition: background-color 0.3s ease, transform 0.2s ease, opacity 0.3s ease;
             opacity: 0.8;
         }
 
         #scrollToTopBtn:hover {
-            background-color: var(--accent-color); /* Add a darker background on hover */
+            background-color: var(--accent-color);
             transform: translateY(-3px);
             opacity: 1;
         }
         /* Adjust for RTL: if needed, change 'left' to 'right' for some elements */
         html[dir="rtl"] #scrollToTopBtn {
-            right: 30px; /* Position to the right for RTL */
-            left: auto; /* Remove left positioning */
+            right: 30px;
+            left: auto;
         }
 
 
         /* Responsive Design */
         @media (max-width: 768px) {
             .hero-section {
-                min-height: 80vh; /* More height on mobile for content + image */
-                padding-top: 60px; /* Adjust top padding */
+                min-height: 80vh;
+                padding-top: 60px;
             }
             .hero-section h1 {
                 font-size: 2.2em;
@@ -695,7 +694,7 @@
                 align-items: center;
             }
             .pricing-card {
-                max-width: 90%; /* Take more width on small screens */
+                max-width: 90%;
             }
             /* How It Works on smaller screens */
             .how-it-works-step {
@@ -716,7 +715,7 @@
             }
             /* Go to top button on mobile */
             html[dir="rtl"] #scrollToTopBtn {
-                right: 20px; /* Adjust position for smaller screens */
+                right: 20px;
                 bottom: 20px;
                 padding: 12px;
                 font-size: 1.2em;
@@ -728,33 +727,40 @@
             }
             .hamburger-menu {
                 display: block; /* Show hamburger icon on mobile */
+                margin-left: 15px; /* Moved to left for RTL hamburger position */
+                margin-right: 0;
             }
             header {
-                justify-content: space-between; /* Push logo and hamburger apart */
+                justify-content: space-between;
             }
             .logo {
-                margin-right: auto; /* Push logo to the right */
-                margin-left: 0;
+                margin-left: auto; /* Push logo to the right */
+                margin-right: 0;
             }
             /* Push content when sidenav is open */
             .body-pushed {
-                margin-right: 250px; /* Width of the open sidebar */
+                /* Changed from margin-right to margin-left for RTL push */
+                margin-left: -250px; /* Negative margin to push content to the left */
             }
             .sidenav {
-                width: 0; /* Initially hidden */
+                width: 0;
                 transition: 0.5s;
+                /* No change needed for right:0 as sidebar is already coming from right */
             }
-            .sidenav.open { /* Class added by JS when open */
-                width: 250px;
+            .sidenav.open {
+                width: 250px; /* Width of the open sidebar */
             }
             /* Adjust the size and position of the side nav items */
             .sidenav ul li {
-                font-size: 1.1em; /* Smaller font size for mobile nav items */
-                padding: 10px 15px; /* Adjust padding */
+                font-size: 1.1em;
+                padding: 10px 15px;
             }
             .sidenav .closebtn {
-                font-size: 2em; /* Adjust close button size */
+                font-size: 2em;
                 top: 10px;
+                /* Position close button on the right for RTL close button */
+                right: 15px; 
+                left: auto;
             }
         }
 
@@ -789,18 +795,20 @@
                 font-size: 1em;
             }
             .sidenav {
-                width: 0; /* Initially hidden */
+                width: 0;
             }
             .sidenav.open {
-                width: 200px; /* Slightly smaller width on very small screens */
+                width: 200px;
             }
             .body-pushed {
-                margin-right: 200px;
+                margin-left: -200px; /* Adjusted negative margin for smaller screen */
             }
         }
     </style>
 </head>
-<body id="body"> <header>
+<body id="body">
+
+    <header>
         <a href="#hero" class="logo" data-section-id="hero">كنترول بيزنسك</a> <button class="hamburger-menu" onclick="openNav()">☰</button>
 
         <div id="mySidenav" class="sidenav">
@@ -908,7 +916,7 @@
                         </div>
                         <div class="how-it-works-step">
                             3
-                            <span>ابدأ العمل</span>
+                            <span>ابدا العمل</span>
                         </div>
                     </div>
                 </div>
@@ -1072,7 +1080,6 @@
             });
 
             // Smooth scrolling for navigation links (both desktop and mobile side-nav)
-            // Select all links that have a data-section-id attribute
             document.querySelectorAll('a[data-section-id]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault(); // Prevent default anchor link behavior
