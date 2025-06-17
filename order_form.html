@@ -75,6 +75,52 @@
             box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
         }
 
+        /* Style for radio buttons group */
+        .radio-group {
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f0f8ff; /* Light blue background */
+        }
+        .radio-group label {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .radio-options {
+            display: flex;
+            flex-direction: column; /* Stack options vertically */
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .radio-option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px;
+            border: 1px solid #cceeff; /* Lighter border for options */
+            border-radius: 5px;
+            background-color: var(--background-white);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .radio-option:hover {
+            background-color: #e6f3ff;
+            border-color: var(--primary-color);
+        }
+        .radio-option input[type="radio"] {
+            margin-left: 10px; /* Space between radio button and text in RTL */
+            transform: scale(1.2); /* Slightly larger radio button */
+            cursor: pointer;
+        }
+        .radio-option span {
+            font-weight: normal;
+            color: var(--text-dark);
+            font-size: 1em;
+        }
+
+
         button {
             display: block;
             width: 100%;
@@ -144,6 +190,9 @@
             button {
                 font-size: 1em;
             }
+            .radio-group {
+                padding: 10px;
+            }
         }
     </style>
 </head>
@@ -169,6 +218,21 @@
                 <label for="email">البريد الإلكتروني:</label>
                 <input type="email" id="email" name="البريد الإلكتروني" required>
             </div>
+
+            <div class="form-group radio-group">
+                <label>اختر الباقة المطلوبة:</label>
+                <div class="radio-options">
+                    <label class="radio-option">
+                        <input type="radio" name="الباقة المطلوبة" value="الباقة الكاملة" checked>
+                        <span>الباقة الكاملة ($50 USD)</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="الباقة المطلوبة" value="الباقة المحدودة">
+                        <span>الباقة المحدودة ($25 USD)</span>
+                    </label>
+                </div>
+            </div>
+
             <button type="submit">إرسال الطلب</button>
             <div id="successMessage" class="success-message">
                 ✅ تم استلام طلبك بنجاح! سنتواصل معك قريباً.
@@ -186,7 +250,6 @@
         const errorMessage = document.getElementById('errorMessage');
 
         // IMPORTANT: Replace with your actual Google Sheet Web App URL
-        // Instructions to get this URL are below
         const GOOGLE_SHEET_WEB_APP_URL = "YOUR_GOOGLE_SHEET_WEB_APP_URL_HERE"; 
 
         form.addEventListener('submit', async (e) => {
