@@ -293,12 +293,12 @@
                 align-items: center;
             }
             .how-it-works-step {
-                width: 120px;
-                height: 120px;
-                font-size: 1.8em;
+                width: 100px;
+                height: 100px;
+                font-size: 1.5em;
             }
             .how-it-works-step span {
-                font-size: 0.8em;
+                font-size: 0.7em;
             }
         }
 
@@ -533,6 +533,38 @@
             color: white;
         }
 
+        /* Go To Top Button Styles */
+        #scrollToTopBtn {
+            display: none; /* Hidden by default */
+            position: fixed; /* Fixed/sticky position */
+            bottom: 30px; /* Place the button at the bottom of the page */
+            left: 30px; /* 30px from the left (for RTL layout) */
+            z-index: 99; /* Make sure it does not overlap */
+            border: none; /* Remove borders */
+            outline: none; /* Remove outline */
+            background-color: var(--primary-color); /* Set a background color */
+            color: white; /* Text color */
+            cursor: pointer; /* Add a mouse pointer on hover */
+            padding: 15px; /* Some padding */
+            border-radius: 50%; /* Rounded shape */
+            font-size: 1.5em; /* Increase font size */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease, transform 0.2s ease, opacity 0.3s ease;
+            opacity: 0.8;
+        }
+
+        #scrollToTopBtn:hover {
+            background-color: var(--accent-color); /* Add a darker background on hover */
+            transform: translateY(-3px);
+            opacity: 1;
+        }
+        /* Adjust for RTL: if needed, change 'left' to 'right' for some elements */
+        html[dir="rtl"] #scrollToTopBtn {
+            right: 30px; /* Position to the right for RTL */
+            left: auto; /* Remove left positioning */
+        }
+
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .hero-section h1 {
@@ -576,6 +608,13 @@
                 padding: 10px 20px;
                 font-size: 1em;
             }
+            /* Go to top button on mobile */
+            html[dir="rtl"] #scrollToTopBtn {
+                right: 20px; /* Adjust position for smaller screens */
+                bottom: 20px;
+                padding: 12px;
+                font-size: 1.2em;
+            }
         }
 
         @media (max-width: 480px) {
@@ -616,14 +655,14 @@
     <header>
         <nav class="container">
             <ul>
-                <li><a href="#hero">الرئيسية</a></li>
-                <li><a href="#problem-solution">المشكلة والحل</a></li>
-                <li><a href="#features">الميزات</a></li>
-                <li><a href="#how-it-works">كيف يعمل؟</a></li>
-                <li><a href="#target-audience">لمن النظام؟</a></li>
-                <li><a href="#trial-version">النسخة التجريبية</a></li>
-                <li><a href="#pricing">الأسعار</a></li>
-                <li><a href="#faq">الأسئلة الشائعة</a></li>
+                <li><a href="#" data-section-id="hero">الرئيسية</a></li>
+                <li><a href="#" data-section-id="problem-solution">المشكلة والحل</a></li>
+                <li><a href="#" data-section-id="features">الميزات</a></li>
+                <li><a href="#" data-section-id="how-it-works">كيف يعمل؟</a></li>
+                <li><a href="#" data-section-id="target-audience">لمن النظام؟</a></li>
+                <li><a href="#" data-section-id="trial-version">النسخة التجريبية</a></li>
+                <li><a href="#" data-section-id="pricing">الأسعار</a></li>
+                <li><a href="#" data-section-id="faq">الأسئلة الشائعة</a></li>
             </ul>
         </nav>
     </header>
@@ -634,8 +673,8 @@
                 <h1>وداعاً لفوضى الأوراق! نظام إدارة مبيعات وتحصيلاتك على Excel بين يديك.</h1>
                 <p>نظام متكامل ومخصص لمتابعة عملائك، منتجاتك، فواتيرك، وتحصيلاتك بكل احترافية وسهولة.</p>
                 <div class="hero-buttons">
-                    <a href="#pricing" class="btn btn-primary">اطلب نسختك الآن</a>
-                    <a href="#trial-versio" class="btn btn-secondary">حمل النسخة التجريبية مجاناً</a>
+                    <a href="order_form.html" class="btn btn-primary">اطلب نسختك الآن</a>
+                    <a href="#trial-version" class="btn btn-secondary">حمل النسخة التجريبية مجاناً</a>
                 </div>
             </div>
             <div class="hero-image-placeholder">
@@ -730,7 +769,7 @@
             <div class="container" style="text-align: center;">
                 <h2>جرب قبل أن تشتري!</h2>
                 <p class="text-content">نؤمن بجودة منتجنا، ولذلك نقدم لك نسخة تجريبية مجانية تتيح لك استكشاف جميع ميزات النظام وإدخال كمية محدودة من البيانات لاختبار فعاليته بنفسك قبل اتخاذ قرار الشراء. حملها الآن وابدأ في تنظيم أعمالك.</p>
-                <a href="#trial-versio" class="btn btn-secondary">حمل النسخة التجريبية مجاناً</a>
+                <a href="#" class="btn btn-secondary">حمل النسخة التجريبية مجاناً</a>
             </div>
         </section>
 
@@ -836,6 +875,8 @@
         </section>
     </main>
 
+    <button id="scrollToTopBtn" title="العودة لأعلى الصفحة">⬆</button>
+
     <footer>
         <div class="container">
             <p>&copy; 2024 نظام إدارة المبيعات والتحصيلات. جميع الحقوق محفوظة.</p>
@@ -852,6 +893,48 @@
                 question.addEventListener('click', () => {
                     const faqItem = question.closest('.faq-item');
                     faqItem.classList.toggle('active');
+                });
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('nav ul li a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault(); // Prevent default anchor link behavior
+
+                    const sectionId = this.getAttribute('data-section-id'); // Get the ID from data-section-id
+                    const targetSection = document.getElementById(sectionId);
+
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - document.querySelector('header').offsetHeight, // Adjust for fixed header
+                            behavior: 'smooth'
+                        });
+                        // Optional: Update URL without adding to history (modern browsers only)
+                        // history.replaceState(null, '', window.location.pathname); 
+                    }
+                });
+            });
+
+
+            // JavaScript for Go To Top Button
+            const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+            // When the user scrolls down 200px from the top of the document, show the button
+            window.onscroll = function() { scrollFunction() };
+
+            function scrollFunction() {
+                if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                    scrollToTopBtn.style.display = "block";
+                } else {
+                    scrollToTopBtn.style.display = "none";
+                }
+            }
+
+            // When the user clicks on the button, scroll to the top of the document
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth' // Smooth scroll behavior
                 });
             });
         });
