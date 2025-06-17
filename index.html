@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نظام إدارة المبيعات والتحصيلات على Excel</title>
 
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet"></noscript>
 
     <style>
@@ -20,7 +23,7 @@
         }
 
         body {
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Cairo', sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif; /* Add fallback fonts */
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -681,7 +684,7 @@
                 </div>
             </div>
             <div class="hero-image-placeholder">
-                <img src="https://via.placeholder.com/800x450?text=Excel+System+UI+Screenshot" alt="واجهة نظام Excel">
+                <img src="https://via.placeholder.com/800x450?text=Excel+System+UI+Screenshot" alt="واجهة نظام Excel" width="800" height="450">
             </div>
         </section>
 
@@ -748,7 +751,7 @@
                     </div>
                     <div class="how-it-works-step">
                         3
-                        <span>ابدأ العمل</span>
+                        <span>ابدا العمل</span>
                     </div>
                 </div>
             </div>
@@ -908,12 +911,16 @@
                     const targetSection = document.getElementById(sectionId);
 
                     if (targetSection) {
+                        // Calculate scroll position, accounting for fixed header height
+                        const headerHeight = document.querySelector('header').offsetHeight;
+                        const targetOffsetTop = targetSection.offsetTop;
+                        
                         window.scrollTo({
-                            top: targetSection.offsetTop - document.querySelector('header').offsetHeight, // Adjust for fixed header
+                            top: targetOffsetTop - headerHeight,
                             behavior: 'smooth'
                         });
                         // Optional: Update URL without adding to history (modern browsers only)
-                        // history.replaceState(null, '', window.location.pathname);
+                        // history.replaceState(null, '', window.location.pathname); 
                     }
                 });
             });
