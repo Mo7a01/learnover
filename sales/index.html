@@ -33,12 +33,18 @@
             direction: rtl;
             text-align: right;
             overflow-x: hidden; /* Prevent horizontal scroll when sidebar is open */
+            transition: margin-right .5s; /* Smooth transition for pushing content */
+        }
+
+        /* Wrapper for main content to be pushed */
+        #main-content-wrapper {
+            transition: margin-right .5s;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px; /* Adjusted padding to allow for hamburger icon on edge */
+            padding: 0 20px;
         }
 
         header {
@@ -47,10 +53,12 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             text-align: center;
             display: flex;
-            justify-content: space-between; /* To push nav and hamburger apart */
+            justify-content: space-between;
             align-items: center;
-            padding-right: 20px; /* Align content with container */
-            padding-left: 20px; /* Align content with container */
+            padding-right: 20px;
+            padding-left: 20px;
+            position: relative; /* Ensure z-index works */
+            z-index: 10; /* Lower than sidenav */
         }
 
         .logo {
@@ -58,12 +66,12 @@
             font-weight: bold;
             color: var(--primary-color);
             text-decoration: none;
-            margin-left: auto; /* Push logo to left on desktop, center on mobile if no nav */
+            margin-left: auto;
         }
         
         /* Desktop Navigation */
         nav {
-            display: block; /* Default to block for desktop */
+            display: block;
         }
 
         nav ul {
@@ -93,15 +101,15 @@
 
         /* Hamburger Icon for Mobile */
         .hamburger-menu {
-            display: none; /* Hidden by default on desktop */
+            display: none;
             font-size: 2em;
             background: none;
             border: none;
             cursor: pointer;
             color: var(--primary-color);
             padding: 0;
-            margin-right: 15px; /* Space from edge */
-            z-index: 1001; /* Above other content */
+            margin-right: 15px;
+            z-index: 101; /* Above header content */
         }
 
         /* Off-canvas menu styling */
@@ -109,7 +117,7 @@
             height: 100%;
             width: 0; /* 0 width by default (hidden) */
             position: fixed;
-            z-index: 1000;
+            z-index: 1000; /* Higher than main content */
             top: 0;
             right: 0; /* Position from right for RTL */
             background-color: var(--background-white);
@@ -128,9 +136,9 @@
         }
 
         .sidenav ul li {
-            padding: 15px 20px;
+            padding: 12px 20px; /* Smaller padding */
             text-decoration: none;
-            font-size: 1.5em;
+            font-size: 1.2em; /* Smaller font size */
             color: var(--text-dark);
             display: block;
             transition: 0.3s;
@@ -159,8 +167,8 @@
             position: absolute;
             top: 15px;
             left: 25px; /* Position close button to the left for RTL */
-            font-size: 3em;
-            margin-right: 0px; /* Remove extra margin */
+            font-size: 2.5em; /* Smaller close button */
+            margin-right: 0px;
             color: var(--text-dark);
             text-decoration: none;
         }
@@ -728,8 +736,25 @@
                 margin-right: auto; /* Push logo to the right */
                 margin-left: 0;
             }
+            /* Push content when sidenav is open */
+            .body-pushed {
+                margin-right: 250px; /* Width of the open sidebar */
+            }
             .sidenav {
-                width: 250px; /* Width of the open sidebar */
+                width: 0; /* Initially hidden */
+                transition: 0.5s;
+            }
+            .sidenav.open { /* Class added by JS when open */
+                width: 250px;
+            }
+            /* Adjust the size and position of the side nav items */
+            .sidenav ul li {
+                font-size: 1.1em; /* Smaller font size for mobile nav items */
+                padding: 10px 15px; /* Adjust padding */
+            }
+            .sidenav .closebtn {
+                font-size: 2em; /* Adjust close button size */
+                top: 10px;
             }
         }
 
@@ -763,12 +788,19 @@
             .faq-question {
                 font-size: 1em;
             }
+            .sidenav {
+                width: 0; /* Initially hidden */
+            }
+            .sidenav.open {
+                width: 200px; /* Slightly smaller width on very small screens */
+            }
+            .body-pushed {
+                margin-right: 200px;
+            }
         }
     </style>
 </head>
-<body>
-
-    <header>
+<body id="body"> <header>
         <a href="#hero" class="logo" data-section-id="hero">كنترول بيزنسك</a> <button class="hamburger-menu" onclick="openNav()">☰</button>
 
         <div id="mySidenav" class="sidenav">
@@ -799,231 +831,234 @@
         </nav>
     </header>
 
-    <main>
-        <section id="hero" class="hero-section">
-            <div class="hero-content">
-                <h1>وداعاً لفوضى الأوراق! نظام إدارة مبيعات وتحصيلاتك على Excel بين يديك.</h1>
-                <p>نظام متكامل ومخصص لمتابعة عملائك، منتجاتك، فواتيرك، وتحصيلاتك بكل احترافية وسهولة.</p>
-                <div class="hero-buttons">
-                    <a href="order_form.html" class="btn btn-primary">اطلب نسختك الآن</a>
-                    <a href="#trial-version" class="btn btn-secondary">حمل النسخة التجريبية مجاناً</a>
-                </div>
-            </div>
-            <div class="hero-image-placeholder">
-                <img src="1.webp" alt="واجهة نظام Excel" width="1920" height="1080"> </div>
-        </section>
-
-        <section id="problem-solution" class="problem-solution">
-            <div class="container">
-                <h2>مشكلتك... وحلها!</h2>
-                <div class="content-wrapper">
-                    <div class="problem">
-                        <h3>المشكلة: الفوضى، الأخطاء، وإضاعة الوقت</h3>
-                        <p class="text-content">هل تعاني من تتبع مبيعاتك وتحصيلاتك يدوياً؟ هل تجد نفسك غارقاً في جداول البيانات المعقدة أو الأوراق المتناثرة؟ الأخطاء البشرية مكلفة وتستنزف وقتك الثمين، وتجعلك تفقد السيطرة على وضعك المالي وتفوت فرص النمو. فغياب نظام مركزي يعني صعوبة في تتبع العملاء، ومتابعة الفواتير المستحقة، وتحليل أداء مبيعاتك.</p>
-                    </div>
-                    <div class="solution">
-                        <h3>الحل: نظام كنترول بيزنسك على Excel</h3>
-                        <p class="text-content">نقدم لك الحل الأمثل: نظام إدارة مبيعات وتحصيلات متكامل مبني على برنامج Excel! صمم هذا النظام ليمنحك السيطرة الكاملة، ويقلل الأخطاء، ويوفر وقتك وجهدك. إنه نظام ذكي وسهل الاستخدام، يلبي احتياجات الشركات الصغيرة، أصحاب الأعمال الحرة، والمحاسبين، لتحويل فوضى الأرقام إلى بيانات منظمة وقرارات ذكية.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="features" class="features">
-            <div class="container">
-                <h2>ميزات النظام الأساسية</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <h3>إدارة عملاء احترافية</h3>
-                        <p>سجل بيانات عملائك بالتفصيل، تتبع تاريخ تعاملاتهم، وادارة جهات الاتصال بكفاءة عالية لتبني علاقات قوية.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3>إدارة منتجات وخدمات فعّالة</h3>
-                        <p>سجل جميع منتجاتك وخدماتك بأسعارها وتفاصيلها، وتتبع المخزون بسهولة، مما يضمن لك عدم نفاد أي صنف مهم.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3>نظام فواتير متكامل</h3>
-                        <p>أنشئ فواتير احترافية ومفصلة بسرعة وسهولة، مع إمكانية طباعتها أو تصديرها لمشاركتها مع عملائك.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3>متابعة تحصيلات ذكية</h3>
-                        <p>تتبع المدفوعات المستلمة والمستحقة بدقة، واحصل على تقارير واضحة تساعدك على إدارة تدفقاتك النقدية بفاعلية.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3>حماية وأمان بياناتك</h3>
-                        <p>بياناتك آمنة ومحمية بكلمة مرور، مما يضمن سرية معلومات عملائك ومبيعاتك ويحميك من الوصول غير المصرح به.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3>واجهة سهلة وبديهية</h3>
-                        <p>تم تصميم النظام ليكون سهل الاستخدام للغاية، حتى لمن ليس لديهم خبرة تقنية سابقة، لتبدأ العمل فوراً بدون تعقيدات.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="how-it-works" class="how-it-works">
-            <div class="container">
-                <h2>كيف يعمل النظام؟</h2>
-                <p class="text-content" style="text-align: center;">العمل بنظامنا بسيط وسريع، فقط في 3 خطوات:</p>
-                <div class="how-it-works-steps">
-                    <div class="how-it-works-step">
-                        1
-                        <span>حمل الملف</span>
-                    </div>
-                    <div class="how-it-works-step">
-                        2
-                        <span>أدخل بياناتك</span>
-                    </div>
-                    <div class="how-it-works-step">
-                        3
-                        <span>ابدأ العمل</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="target-audience" class="target-audience">
-            <div class="container">
-                <h2>من يستفيد من نظام كنترول بيزنسك؟</h2>
-                <p class="text-content" style="text-align: center;">هذا النظام مصمم خصيصاً لمساعدة:</p>
-                <ul>
-                    <li>أصحاب الأعمال الحرة</li>
-                    <li>أصحاب المشروعات الصغيرة والمتوسطة</li>
-                    <li>المحاسبين</li>
-                    <li>مديري المبيعات</li>
-                    <li>أي شخص يسعى لتبسيط وإدارة مبيعاته</li>
-                </ul>
-            </div>
-        </section>
-
-        <section id="trial-version" class="trial-version">
-            <div class="container" style="text-align: center;">
-                <h2>جرب قبل أن تشتري!</h2>
-                <p class="text-content">نؤمن بجودة منتجنا، ولذلك نقدم لك نسخة تجريبية مجانية تتيح لك استكشاف جميع ميزات النظام وإدخال كمية محدودة من البيانات لاختبار فعاليته بنفسك قبل اتخاذ قرار الشراء. حملها الآن وابدأ في تنظيم أعمالك.</p>
-                <a href="#" class="btn btn-secondary">حمل النسخة التجريبية مجاناً</a>
-            </div>
-        </section>
-
-        <section id="pricing" class="pricing">
-            <div class="container">
-                <h2>الأسعار والباكجات</h2>
-                <div class="pricing-cards-wrapper">
-                    <div class="pricing-card secondary-card">
-                        <h3>الباقة المحدودة</h3>
-                        <div class="price">
-                            $25 USD
-                            <br>
-                            (ما يعادل 1200 EGP تقريباً)
-                        </div>
-                        <ul>
-                            <li>نظام إدارة عملاء (أساسي)</li>
-                            <li>إدارة منتجات وخدمات (أساسي)</li>
-                            <li>نظام فواتير (محدود)</li>
-                            <li>متابعة تحصيلات (محدود)</li>
-                            <li>حماية وأمان للبيانات</li>
-                            <li>دليل مستخدم أساسي</li>
-                            <li>دعم فني محدود (عبر البريد الإلكتروني)</li>
-                        </ul>
-                        <p class="note">مثالية للبدء بأعمال صغيرة جداً أو أصحاب الأعمال الحرة. لا تشمل بعض الميزات المتقدمة.</p>
+    <div id="main-content-wrapper"> <main>
+            <section id="hero" class="hero-section">
+                <div class="hero-content">
+                    <h1>وداعاً لفوضى الأوراق! نظام إدارة مبيعات وتحصيلاتك على Excel بين يديك.</h1>
+                    <p>نظام متكامل ومخصص لمتابعة عملائك، منتجاتك، فواتيرك، وتحصيلاتك بكل احترافية وسهولة.</p>
+                    <div class="hero-buttons">
                         <a href="order_form.html" class="btn btn-primary">اطلب نسختك الآن</a>
-                    </div>
-
-                    <div class="pricing-card">
-                        <h3>الباقة المتكاملة</h3>
-                        <div class="price">
-                            $50 USD
-                            <br>
-                            (ما يعادل 2400 EGP تقريباً)
-                        </div>
-                        <ul>
-                            <li>نظام إدارة عملاء متكامل</li>
-                            <li>إدارة منتجات وخدمات فعّالة</li>
-                            <li>نظام فواتير احترافي</li>
-                            <li>متابعة تحصيلات ذكية</li>
-                            <li>حماية وأمان للبيانات</li>
-                            <li>دليل مستخدم شامل</li>
-                            <li>دعم فني أساسي (عبر البريد الإلكتروني)</li>
-                            <li>تحديثات مستقبلية مجانية لمدة عام</li>
-                        </ul>
-                        <p class="note">ملاحظة: تخصيص النظام أو إضافة ميزات خاصة يتطلب تكلفة إضافية.</p>
-                        <a href="order_form.html" class="btn btn-primary">اطلب نسختك الآن</a>
+                        <a href="#trial-version" class="btn btn-secondary">حمل النسخة التجريبية مجاناً</a>
                     </div>
                 </div>
-            </div>
-        </section>
+                <div class="hero-image-placeholder">
+                    <img src="1.webp" alt="واجهة نظام Excel" width="1920" height="1080"> </div>
+            </section>
 
-        <section id="faq" class="faq">
+            <section id="problem-solution" class="problem-solution">
+                <div class="container">
+                    <h2>مشكلتك... وحلها!</h2>
+                    <div class="content-wrapper">
+                        <div class="problem">
+                            <h3>المشكلة: الفوضى، الأخطاء، وإضاعة الوقت</h3>
+                            <p class="text-content">هل تعاني من تتبع مبيعاتك وتحصيلاتك يدوياً؟ هل تجد نفسك غارقاً في جداول البيانات المعقدة أو الأوراق المتناثرة؟ الأخطاء البشرية مكلفة وتستنزف وقتك الثمين، وتجعلك تفقد السيطرة على وضعك المالي وتفوت فرص النمو. فغياب نظام مركزي يعني صعوبة في تتبع العملاء، ومتابعة الفواتير المستحقة، وتحليل أداء مبيعاتك.</p>
+                        </div>
+                        <div class="solution">
+                            <h3>الحل: نظام كنترول بيزنسك على Excel</h3>
+                            <p class="text-content">نقدم لك الحل الأمثل: نظام إدارة مبيعات وتحصيلات متكامل مبني على برنامج Excel! صمم هذا النظام ليمنحك السيطرة الكاملة، ويقلل الأخطاء، ويوفر وقتك وجهدك. إنه نظام ذكي وسهل الاستخدام، يلبي احتياجات الشركات الصغيرة، أصحاب الأعمال الحرة، والمحاسبين، لتحويل فوضى الأرقام إلى بيانات منظمة وقرارات ذكية.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="features" class="features">
+                <div class="container">
+                    <h2>ميزات النظام الأساسية</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <h3>إدارة عملاء احترافية</h3>
+                            <p>سجل بيانات عملائك بالتفصيل، تتبع تاريخ تعاملاتهم، وادارة جهات الاتصال بكفاءة عالية لتبني علاقات قوية.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>إدارة منتجات وخدمات فعّالة</h3>
+                            <p>سجل جميع منتجاتك وخدماتك بأسعارها وتفاصيلها، وتتبع المخزون بسهولة، مما يضمن لك عدم نفاد أي صنف مهم.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>نظام فواتير متكامل</h3>
+                            <p>أنشئ فواتير احترافية ومفصلة بسرعة وسهولة، مع إمكانية طباعتها أو تصديرها لمشاركتها مع عملائك.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>متابعة تحصيلات ذكية</h3>
+                            <p>تتبع المدفوعات المستلمة والمستحقة بدقة، واحصل على تقارير واضحة تساعدك على إدارة تدفقاتك النقدية بفاعلية.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>حماية وأمان بياناتك</h3>
+                            <p>بياناتك آمنة ومحمية بكلمة مرور، مما يضمن سرية معلومات عملائك ومبيعاتك ويحميك من الوصول غير المصرح به.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>واجهة سهلة وبديهية</h3>
+                            <p>تم تصميم النظام ليكون سهل الاستخدام للغاية، حتى لمن ليس لديهم خبرة تقنية سابقة، لتبدأ العمل فوراً بدون تعقيدات.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="how-it-works" class="how-it-works">
+                <div class="container">
+                    <h2>كيف يعمل النظام؟</h2>
+                    <p class="text-content" style="text-align: center;">العمل بنظامنا بسيط وسريع، فقط في 3 خطوات:</p>
+                    <div class="how-it-works-steps">
+                        <div class="how-it-works-step">
+                            1
+                            <span>حمل الملف</span>
+                        </div>
+                        <div class="how-it-works-step">
+                            2
+                            <span>أدخل بياناتك</span>
+                        </div>
+                        <div class="how-it-works-step">
+                            3
+                            <span>ابدأ العمل</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="target-audience" class="target-audience">
+                <div class="container">
+                    <h2>من يستفيد من نظام كنترول بيزنسك؟</h2>
+                    <p class="text-content" style="text-align: center;">هذا النظام مصمم خصيصاً لمساعدة:</p>
+                    <ul>
+                        <li>أصحاب الأعمال الحرة</li>
+                        <li>أصحاب المشروعات الصغيرة والمتوسطة</li>
+                        <li>المحاسبين</li>
+                        <li>مديري المبيعات</li>
+                        <li>أي شخص يسعى لتبسيط وإدارة مبيعاته</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="trial-version" class="trial-version">
+                <div class="container" style="text-align: center;">
+                    <h2>جرب قبل أن تشتري!</h2>
+                    <p class="text-content">نؤمن بجودة منتجنا، ولذلك نقدم لك نسخة تجريبية مجانية تتيح لك استكشاف جميع ميزات النظام وإدخال كمية محدودة من البيانات لاختبار فعاليته بنفسك قبل اتخاذ قرار الشراء. حملها الآن وابدأ في تنظيم أعمالك.</p>
+                    <a href="#" class="btn btn-secondary">حمل النسخة التجريبية مجاناً</a>
+                </div>
+            </section>
+
+            <section id="pricing" class="pricing">
+                <div class="container">
+                    <h2>الأسعار والباكجات</h2>
+                    <div class="pricing-cards-wrapper">
+                        <div class="pricing-card secondary-card">
+                            <h3>الباقة المحدودة</h3>
+                            <div class="price">
+                                $25 USD
+                                <br>
+                                (ما يعادل 1200 EGP تقريباً)
+                            </div>
+                            <ul>
+                                <li>نظام إدارة عملاء (أساسي)</li>
+                                <li>إدارة منتجات وخدمات (أساسي)</li>
+                                <li>نظام فواتير (محدود)</li>
+                                <li>متابعة تحصيلات (محدود)</li>
+                                <li>حماية وأمان للبيانات</li>
+                                <li>دليل مستخدم أساسي</li>
+                                <li>دعم فني محدود (عبر البريد الإلكتروني)</li>
+                            </ul>
+                            <p class="note">مثالية للبدء بأعمال صغيرة جداً أو أصحاب الأعمال الحرة. لا تشمل بعض الميزات المتقدمة.</p>
+                            <a href="order_form.html" class="btn btn-primary">اطلب نسختك الآن</a>
+                        </div>
+
+                        <div class="pricing-card">
+                            <h3>الباقة المتكاملة</h3>
+                            <div class="price">
+                                $50 USD
+                                <br>
+                                (ما يعادل 2400 EGP تقريباً)
+                            </div>
+                            <ul>
+                                <li>نظام إدارة عملاء متكامل</li>
+                                <li>إدارة منتجات وخدمات فعّالة</li>
+                                <li>نظام فواتير احترافي</li>
+                                <li>متابعة تحصيلات ذكية</li>
+                                <li>حماية وأمان للبيانات</li>
+                                <li>دليل مستخدم شامل</li>
+                                <li>دعم فني أساسي (عبر البريد الإلكتروني)</li>
+                                <li>تحديثات مستقبلية مجانية لمدة عام</li>
+                            </ul>
+                            <p class="note">ملاحظة: تخصيص النظام أو إضافة ميزات خاصة يتطلب تكلفة إضافية.</p>
+                            <a href="order_form.html" class="btn btn-primary">اطلب نسختك الآن</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="faq" class="faq">
+                <div class="container">
+                    <h2>الأسئلة الشائعة</h2>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                هل يعمل النظام على Excel Online (أو Google Sheets)؟
+                                <span class="icon">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>النظام مصمم للعمل بفعالية قصوى على برنامج Microsoft Excel المثبت على جهازك (Windows أو Mac). قد لا تعمل بعض الميزات بشكل كامل على Excel Online أو Google Sheets نظراً للاختلاف في إمكانيات البرمجيات.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                هل يمكنني تعديل النظام بنفسي بعد الشراء؟
+                                <span class="icon">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>نعم، بعد شراء النسخة الكاملة، يمكنك تعديل بعض الجداول والبيانات بسهولة. ومع ذلك، لا ننصح بتعديل الأكواد البرمجية (VBA) الداخلية إلا إذا كنت على دراية تامة بكيفية عملها لتجنب الأخطاء.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                هل أحتاج إلى خبرة برمجية لاستخدام النظام؟
+                                <span class="icon">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>لا إطلاقاً! النظام مصمم ليكون سهل الاستخدام وبديهي، ولا يتطلب أي خبرة برمجية. كل ما تحتاجه هو معرفة أساسية ببرنامج Excel.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                كيف أحصل على الدعم الفني؟
+                                <span class="icon">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>يشمل الشراء دعمًا فنيًا أساسيًا عبر البريد الإلكتروني. يمكنك التواصل معنا لأي استفسارات أو مشاكل فنية وسيتم الرد عليك في أقرب وقت ممكن.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                هل الدفع لمرة واحدة أم اشتراك شهري/سنوي؟
+                                <span class="icon">▼</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>الدفع لمرة واحدة فقط! تحصل على النسخة الكاملة من النظام مع تحديثات مستقبلية مجانية لمدة عام.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <button id="scrollToTopBtn" title="العودة لأعلى الصفحة">⬆</button>
+
+        <footer>
             <div class="container">
-                <h2>الأسئلة الشائعة</h2>
-                <div class="faq-list">
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            هل يعمل النظام على Excel Online (أو Google Sheets)؟
-                            <span class="icon">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>النظام مصمم للعمل بفعالية قصوى على برنامج Microsoft Excel المثبت على جهازك (Windows أو Mac). قد لا تعمل بعض الميزات بشكل كامل على Excel Online أو Google Sheets نظراً للاختلاف في إمكانيات البرمجيات.</p>
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            هل يمكنني تعديل النظام بنفسي بعد الشراء؟
-                            <span class="icon">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>نعم، بعد شراء النسخة الكاملة، يمكنك تعديل بعض الجداول والبيانات بسهولة. ومع ذلك، لا ننصح بتعديل الأكواد البرمجية (VBA) الداخلية إلا إذا كنت على دراية تامة بكيفية عملها لتجنب الأخطاء.</p>
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            هل أحتاج إلى خبرة برمجية لاستخدام النظام؟
-                            <span class="icon">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>لا إطلاقاً! النظام مصمم ليكون سهل الاستخدام وبديهي، ولا يتطلب أي خبرة برمجية. كل ما تحتاجه هو معرفة أساسية ببرنامج Excel.</p>
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            كيف أحصل على الدعم الفني؟
-                            <span class="icon">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>يشمل الشراء دعمًا فنيًا أساسيًا عبر البريد الإلكتروني. يمكنك التواصل معنا لأي استفسارات أو مشاكل فنية وسيتم الرد عليك في أقرب وقت ممكن.</p>
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            هل الدفع لمرة واحدة أم اشتراك شهري/سنوي؟
-                            <span class="icon">▼</span>
-                        </div>
-                        <div class="faq-answer">
-                            <p>الدفع لمرة واحدة فقط! تحصل على النسخة الكاملة من النظام مع تحديثات مستقبلية مجانية لمدة عام.</p>
-                        </div>
-                    </div>
-                </div>
+                <p>&copy; 2024 نظام إدارة المبيعات والتحصيلات. جميع الحقوق محفوظة.</p>
+                <p>تم التطوير بواسطة [اسم المطور/شركتك]</p>
+                <p>للتواصل: <a href="tel:+201000000000">+201000000000</a> | <a href="mailto:info@yourdomain.com">info@yourdomain.com</a></p>
             </div>
-        </section>
-    </main>
-
-    <button id="scrollToTopBtn" title="العودة لأعلى الصفحة">⬆</button>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 نظام إدارة المبيعات والتحصيلات. جميع الحقوق محفوظة.</p>
-            <p>تم التطوير بواسطة [اسم المطور/شركتك]</p>
-            <p>للتواصل: <a href="tel:+201000000000">+201000000000</a> | <a href="mailto:info@yourdomain.com">info@yourdomain.com</a></p>
-        </div>
-    </footer>
-
-    <script>
+        </footer>
+    </div> <script>
         // JavaScript for opening and closing the side navigation (hamburger menu)
         function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("mySidenav").classList.add("open");
+            document.getElementById("main-content-wrapper").classList.add("body-pushed");
+            document.body.style.overflow = "hidden"; // Prevent scrolling main content
         }
 
         function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("mySidenav").classList.remove("open");
+            document.getElementById("main-content-wrapper").classList.remove("body-pushed");
+            document.body.style.overflow = "auto"; // Re-enable scrolling
         }
 
         document.addEventListener('DOMContentLoaded', () => {
