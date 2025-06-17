@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,21 +23,22 @@
         }
 
         body {
-            font-family: 'Cairo', sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif; /* Add fallback fonts */
+            font-family: 'Cairo', sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             background-color: var(--background-light);
             color: var(--text-dark);
             line-height: 1.6;
-            direction: rtl; /* Right-to-left for Arabic */
+            direction: rtl;
             text-align: right;
+            overflow-x: hidden; /* Prevent horizontal scroll when sidebar is open */
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px; /* Adjusted padding to allow for hamburger icon on edge */
         }
 
         header {
@@ -46,6 +46,24 @@
             padding: 20px 0;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             text-align: center;
+            display: flex;
+            justify-content: space-between; /* To push nav and hamburger apart */
+            align-items: center;
+            padding-right: 20px; /* Align content with container */
+            padding-left: 20px; /* Align content with container */
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-left: auto; /* Push logo to left on desktop, center on mobile if no nav */
+        }
+        
+        /* Desktop Navigation */
+        nav {
+            display: block; /* Default to block for desktop */
         }
 
         nav ul {
@@ -73,20 +91,104 @@
             color: var(--primary-color);
         }
 
-        .-section {
+        /* Hamburger Icon for Mobile */
+        .hamburger-menu {
+            display: none; /* Hidden by default on desktop */
+            font-size: 2em;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--primary-color);
+            padding: 0;
+            margin-right: 15px; /* Space from edge */
+            z-index: 1001; /* Above other content */
+        }
+
+        /* Off-canvas menu styling */
+        .sidenav {
+            height: 100%;
+            width: 0; /* 0 width by default (hidden) */
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            right: 0; /* Position from right for RTL */
+            background-color: var(--background-white);
+            overflow-x: hidden;
+            transition: 0.5s; /* Smooth transition */
+            padding-top: 60px;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+        }
+
+        .sidenav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            text-align: center;
+        }
+
+        .sidenav ul li {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 1.5em;
+            color: var(--text-dark);
+            display: block;
+            transition: 0.3s;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidenav ul li:last-child {
+            border-bottom: none;
+        }
+
+        .sidenav ul li a {
+            display: block;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .sidenav ul li:hover {
+            background-color: var(--primary-color);
+        }
+        .sidenav ul li:hover a {
+            color: white;
+        }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 15px;
+            left: 25px; /* Position close button to the left for RTL */
+            font-size: 3em;
+            margin-right: 0px; /* Remove extra margin */
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+        .sidenav .closebtn:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section - MODIFIED for better image handling */
+        .hero-section {
             background-color: var(--primary-color);
             color: white;
-            padding: 80px 0;
+            padding: 80px 0 0; /* Keep padding top, remove bottom if image fills */
             text-align: center;
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 70vh; /* Ensure min height to contain content */
         }
 
         .hero-content {
             max-width: 900px;
-            margin: 0 auto;
+            margin: 0 auto 40px auto; /* Add margin-bottom to separate from image */
             position: relative;
             z-index: 1;
+            padding: 0 20px; /* Add horizontal padding for content */
         }
 
         .hero-section h1 {
@@ -138,15 +240,17 @@
         }
 
         .hero-image-placeholder {
-            margin-top: 60px;
+            margin-top: 40px; /* Adjusted margin top */
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             padding: 20px;
-            max-width: 800px;
+            max-width: 800px; /* Or larger if your image is wider */
+            width: 100%; /* Ensure it takes available width */
             margin-left: auto;
             margin-right: auto;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             overflow: hidden;
+            flex-shrink: 0; /* Prevent it from shrinking */
         }
 
         .hero-image-placeholder img {
@@ -154,6 +258,7 @@
             height: auto;
             display: block;
             border-radius: 8px;
+            object-fit: contain; /* Ensure image fits within its container */
         }
 
         section {
@@ -289,24 +394,6 @@
         /* REMOVED: Arrow styling for desktop */
         .how-it-works-step:not(:last-child)::after {
             content: none; /* Explicitly remove content for the arrow */
-        }
-        /* MODIFIED: Media query for mobile, stacking steps vertically */
-        @media (max-width: 768px) {
-            .how-it-works-step:not(:last-child)::after {
-                content: none; /* Ensure arrows are removed on mobile too */
-            }
-            .how-it-works-steps {
-                flex-direction: column;
-                align-items: center;
-            }
-            .how-it-works-step {
-                width: 100px;
-                height: 100px;
-                font-size: 1.5em;
-            }
-            .how-it-works-step span {
-                font-size: 0.7em;
-            }
         }
 
 
@@ -574,6 +661,10 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            .hero-section {
+                min-height: 80vh; /* More height on mobile for content + image */
+                padding-top: 60px; /* Adjust top padding */
+            }
             .hero-section h1 {
                 font-size: 2.2em;
             }
@@ -622,6 +713,24 @@
                 padding: 12px;
                 font-size: 1.2em;
             }
+
+            /* Mobile Navigation (Hamburger Menu) */
+            nav {
+                display: none; /* Hide desktop nav on mobile */
+            }
+            .hamburger-menu {
+                display: block; /* Show hamburger icon on mobile */
+            }
+            header {
+                justify-content: space-between; /* Push logo and hamburger apart */
+            }
+            .logo {
+                margin-right: auto; /* Push logo to the right */
+                margin-left: 0;
+            }
+            .sidenav {
+                width: 250px; /* Width of the open sidebar */
+            }
         }
 
         @media (max-width: 480px) {
@@ -660,7 +769,23 @@
 <body>
 
     <header>
-        <nav class="container">
+        <a href="#hero" class="logo" data-section-id="hero">كنترول بيزنسك</a> <button class="hamburger-menu" onclick="openNav()">☰</button>
+
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <ul>
+                <li><a href="#" data-section-id="hero" onclick="closeNav()">الرئيسية</a></li>
+                <li><a href="#" data-section-id="problem-solution" onclick="closeNav()">المشكلة والحل</a></li>
+                <li><a href="#" data-section-id="features" onclick="closeNav()">الميزات</a></li>
+                <li><a href="#" data-section-id="how-it-works" onclick="closeNav()">كيف يعمل؟</a></li>
+                <li><a href="#" data-section-id="target-audience" onclick="closeNav()">لمن النظام؟</a></li>
+                <li><a href="#" data-section-id="trial-version" onclick="closeNav()">النسخة التجريبية</a></li>
+                <li><a href="#" data-section-id="pricing" onclick="closeNav()">الأسعار</a></li>
+                <li><a href="#" data-section-id="faq" onclick="closeNav()">الأسئلة الشائعة</a></li>
+            </ul>
+        </div>
+
+        <nav id="desktopNav">
             <ul>
                 <li><a href="#" data-section-id="hero">الرئيسية</a></li>
                 <li><a href="#" data-section-id="problem-solution">المشكلة والحل</a></li>
@@ -677,7 +802,7 @@
     <main>
         <section id="hero" class="hero-section">
             <div class="hero-content">
-                <h1>وداعاً لفوضى الأوراق!! نظام إدارة مبيعات وتحصيلاتك على Excel بين يديك.</h1>
+                <h1>وداعاً لفوضى الأوراق! نظام إدارة مبيعات وتحصيلاتك على Excel بين يديك.</h1>
                 <p>نظام متكامل ومخصص لمتابعة عملائك، منتجاتك، فواتيرك، وتحصيلاتك بكل احترافية وسهولة.</p>
                 <div class="hero-buttons">
                     <a href="order_form.html" class="btn btn-primary">اطلب نسختك الآن</a>
@@ -685,8 +810,7 @@
                 </div>
             </div>
             <div class="hero-image-placeholder">
-                <img src="1.webp" alt="واجهة نظام Excel" width="949" height="797">
-            </div>
+                <img src="1.webp" alt="واجهة نظام Excel" width="1920" height="1080"> </div>
         </section>
 
         <section id="problem-solution" class="problem-solution">
@@ -752,7 +876,7 @@
                     </div>
                     <div class="how-it-works-step">
                         3
-                        <span>ابدا العمل</span>
+                        <span>ابدأ العمل</span>
                     </div>
                 </div>
             </div>
@@ -893,6 +1017,15 @@
     </footer>
 
     <script>
+        // JavaScript for opening and closing the side navigation (hamburger menu)
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const faqQuestions = document.querySelectorAll('.faq-question');
 
@@ -903,12 +1036,13 @@
                 });
             });
 
-            // Smooth scrolling for navigation links
-            document.querySelectorAll('nav ul li a').forEach(anchor => {
+            // Smooth scrolling for navigation links (both desktop and mobile side-nav)
+            // Select all links that have a data-section-id attribute
+            document.querySelectorAll('a[data-section-id]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault(); // Prevent default anchor link behavior
 
-                    const sectionId = this.getAttribute('data-section-id'); // Get the ID from data-section-id
+                    const sectionId = this.getAttribute('data-section-id');
                     const targetSection = document.getElementById(sectionId);
 
                     if (targetSection) {
